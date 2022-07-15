@@ -1,7 +1,53 @@
 /* stylelint-disable linebreaks */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap') ;
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #191818;
+  border: 3px solid black;
+  border-radius: 20px;
+}
+
+body {
+  background-color: #171212;
+  font-family: Varela Round , sans-serif;
+  height: 100vh;
+}
+
+@media ( max-width : 640px ) {
+
+  .p-14, header {
+    padding: 0;
+  }
+
+  .zeroGap {
+    gap: 40px;
+  }
+
+  .inputHeader {
+    margin-left: -190px;
+    position: absolute;
+    top: 100px;
+  }
+
+  .text-black {
+    color: white;
+  }
+
+  .card {
+    height: 250px;
+    width: 350px;
+  }
+
+  .reducePaddingCards {
+    padding: 50px;
+  }
 }

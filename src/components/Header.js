@@ -13,32 +13,51 @@ export default function Header({ title, searchBool }) {
   const setInputValue = ({ target: { value } }) => setSearchInput(value);
 
   return (
-    <header>
-      <h1 data-testid="page-title">{ title }</h1>
-      <Link to="/profile">
-        <img src={ icon } alt="ícone de perfil" data-testid="profile-top-btn" />
-      </Link>
-      {input && (
-        <div>
-          <input
-            value={ searchInput }
-            name="searchInput"
-            onChange={ setInputValue }
-            data-testid="search-input"
-            type="text"
-          />
-          <SearchBar headerTitle={ title } />
+    <header className="flex items-center p-3 bg-zinc-300">
+      <h1
+        data-testid="page-title"
+        className="text-[40px] text-[#000] p-14 ml-[30px]"
+      >
+        { title }
+      </h1>
+      <div className="m-auto">
+        <div className="flex items-center gap-[100px] zeroGap">
+          {input && (
+            <div className="flex flex-col inputHeader">
+              <div className="flex justify-center">
+                <input
+                  value={ searchInput }
+                  name="searchInput"
+                  onChange={ setInputValue }
+                  data-testid="search-input"
+                  type="text"
+                  placeholder="Find a Recipe..."
+                  className={ `input
+                    input-bordered
+                    input-success
+                    w-full max-w-xs
+                    bg-zinc-400
+                    text-zinc-900
+                    placeholder:text-zinc-600` }
+                />
+              </div>
+              <SearchBar headerTitle={ title } />
+            </div>
+          )}
+          {searchBool && (
+            <button type="button" onClick={ () => setInput(!input) }>
+              <img
+                src={ search }
+                alt="ícone de pesquisa"
+                data-testid="search-top-btn"
+              />
+            </button>
+          )}
+          <Link to="/profile">
+            <img src={ icon } alt="ícone de perfil" data-testid="profile-top-btn" />
+          </Link>
         </div>
-      )}
-      {searchBool && (
-        <button type="button" onClick={ () => setInput(!input) }>
-          <img
-            src={ search }
-            alt="ícone de pesquisa"
-            data-testid="search-top-btn"
-          />
-        </button>
-      )}
+      </div>
     </header>
   );
 }
