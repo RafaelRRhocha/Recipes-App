@@ -12,8 +12,6 @@ export default function Login() {
   const [disable, setDisable] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const magicNumberSix = 6;
-
   const verifyInputPassword = ({ target: { value } }) => setPassword(value);
 
   const verifyInputEmail = ({ target: { value } }) => {
@@ -48,7 +46,7 @@ export default function Login() {
         value={ password }
       />
       <button
-        disabled={ !disable || password.length <= magicNumberSix }
+        disabled={ !disable || password.length <= '6' }
         data-testid="login-submit-btn"
         type="button"
         onClick={ saveUserTokens }
