@@ -31,28 +31,36 @@ export default function Login() {
   };
 
   return (
-    <>
-      {redirect && <Redirect to="foods" />}
-      <input
-        onChange={ verifyInputEmail }
-        data-testid="email-input"
-        type="email"
-        value={ email }
-      />
-      <input
-        onChange={ verifyInputPassword }
-        data-testid="password-input"
-        type="password"
-        value={ password }
-      />
-      <button
-        disabled={ !disable || password.length <= '6' }
-        data-testid="login-submit-btn"
-        type="button"
-        onClick={ saveUserTokens }
-      >
-        Enter
-      </button>
-    </>
+    <div className="flex flex-col items-center justify-center gap-3 pt-[10%]">
+      <h1 className="text-center text-[50px]">Recipe App</h1>
+      <div className="form-control w-full max-w-xs flex gap-4">
+        {redirect && <Redirect to="foods" />}
+        <input
+          onChange={ verifyInputEmail }
+          data-testid="email-input"
+          type="email"
+          value={ email }
+          placeholder="type your email here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <input
+          onChange={ verifyInputPassword }
+          data-testid="password-input"
+          type="password"
+          value={ password }
+          placeholder="type your password here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <button
+          disabled={ !disable || password.length <= '6' }
+          data-testid="login-submit-btn"
+          type="button"
+          onClick={ saveUserTokens }
+          className="btn btn-secondary"
+        >
+          Enter
+        </button>
+      </div>
+    </div>
   );
 }

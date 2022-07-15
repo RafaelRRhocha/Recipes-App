@@ -1,13 +1,14 @@
 import React from 'react';
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
+import { cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 describe('Testando a tela de Login', () => {
   beforeEach(cleanup);
 
   it('Testes dos elementos da tela de Login', () => {
-    render(<App />);
+    const { history } = renderWithRouter(<App />);
     const inputEmail = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterButon = screen.getByTestId(/login-submit-btn/i);
@@ -16,10 +17,12 @@ describe('Testando a tela de Login', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(enterButon).toBeInTheDocument();
     expect(enterButon.disabled).toBeTruthy();
+
+    expect(history.location.pathname).toBe('/');
   });
 
   it('Teste do Botão Play', async () => {
-    render(<App />);
+    renderWithRouter(<App />);
     const inputEmail = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterButon = screen.getByTestId(/login-submit-btn/i);
