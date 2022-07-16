@@ -11,7 +11,7 @@ export default function Provider({ children }) {
   const [response, setResponse] = useState(null);
   const [responseDrinks, setResponseDrinks] = useState(null);
 
-  const makeFetch = async () => {
+  const makeFetchFoods = async () => {
     if (typeSearch === 'ingrediente') {
       try {
         const api = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`);
@@ -80,7 +80,7 @@ export default function Provider({ children }) {
   };
 
   useEffect(() => {
-    makeFetch();
+    makeFetchFoods();
     makeFetchDrinks();
   }, []);
 
@@ -91,7 +91,7 @@ export default function Provider({ children }) {
     setTypeSearch,
     response,
     responseDrinks,
-    makeFetch,
+    makeFetchFoods,
     makeFetchDrinks,
   };
 

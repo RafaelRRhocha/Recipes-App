@@ -3,11 +3,11 @@ import React, { useContext } from 'react';
 import dataContext from '../context/MyContext';
 
 export default function SearchBar({ headerTitle }) {
-  const { setTypeSearch, makeFetch, makeFetchDrinks } = useContext(dataContext);
+  const { setTypeSearch, makeFetchFoods, makeFetchDrinks } = useContext(dataContext);
 
   const verifyFetch = () => {
     if (headerTitle === 'Foods') {
-      makeFetch();
+      makeFetchFoods();
     }
     if (headerTitle === 'Drinks') {
       makeFetchDrinks();
