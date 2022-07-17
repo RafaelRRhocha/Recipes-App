@@ -10,6 +10,8 @@ export default function Provider({ children }) {
   const [typeSearch, setTypeSearch] = useState('');
   const [response, setResponse] = useState(null);
   const [responseDrinks, setResponseDrinks] = useState(null);
+  const [foods, setFoods] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const makeFetchFoods = async () => {
     if (typeSearch === 'ingrediente') {
@@ -79,6 +81,18 @@ export default function Provider({ children }) {
     return null;
   };
 
+  const makeFetchCategory = async (value) => {
+    const apiCategory = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`);
+    const jsonRequestCategory = await apiCategory.json();
+    setFoods(jsonRequestCategory.meals.filter((_, i) => i < '12'));
+  };
+
+  const makeFetchCategoryDrinks = async (value) => {
+    const apiCategory = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
+    const jsonRequestCategory = await apiCategory.json();
+    setDrinks(jsonRequestCategory.drinks.filter((_, i) => i < '12'));
+  };
+
   useEffect(() => {
     makeFetchFoods();
     makeFetchDrinks();
@@ -93,6 +107,12 @@ export default function Provider({ children }) {
     responseDrinks,
     makeFetchFoods,
     makeFetchDrinks,
+    makeFetchCategory,
+    foods,
+    setFoods,
+    makeFetchCategoryDrinks,
+    drinks,
+    setDrinks,
   };
 
   return (
