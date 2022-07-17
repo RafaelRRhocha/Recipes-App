@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesForFoods from '../components/RecipesForFoods';
 import dataContext from '../context/MyContext';
 
 export default function Foods() {
@@ -13,11 +14,7 @@ export default function Foods() {
     <div className="bg-[#171212]">
       <Header title="Foods" searchBool />
       {!response && (
-        <p
-          className="text-zinc-100 text-[20px] text-center mt-[10%]"
-        >
-          Nenhum item encontrado
-        </p>
+        <RecipesForFoods />
       )}
       {response && (
         <div className="flex gap-8 flex-wrap justify-center p-20 reducePaddingCards">
@@ -25,25 +22,33 @@ export default function Foods() {
             idFood()
           ) : (
             response.map((element, i) => (
-              <div
-                className="card w-[300px] h-[200px] bg-base-100 shadow-xl image-full"
-                data-testid={ `${i}-recipe-card` }
-                key={ i }
-              >
-                <img
-                  src={ element.strMealThumb }
-                  data-testid={ `${i}-card-img` }
-                  alt="card da imagem"
-                />
-                <div className="card-body">
-                  <h2 className="text-zinc-200" data-testid={ `${i}-card-name` }>
-                    { element.strMeal }
-                  </h2>
-                  <div className="card-actions justify-end">
-                    <button type="button" className="btn btn-primary">See Recipe</button>
+              <Link to={ `/foods/${element.idMeal}` } key={ i }>
+                <div
+                  className={ `card
+                  w-[300px]
+                  h-[200px]
+                  bg-base-100
+                  shadow-xl
+                  image-full
+                  transition-all
+                  hover:scale-105 ` }
+                  data-testid={ `${i}-recipe-card` }
+                >
+                  <img
+                    src={ element.strMealThumb }
+                    data-testid={ `${i}-card-img` }
+                    alt="card da imagem"
+                  />
+                  <div className="card-body">
+                    <h2
+                      className="text-zinc-200 text-[20px]"
+                      data-testid={ `${i}-card-name` }
+                    >
+                      { element.strMeal }
+                    </h2>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>

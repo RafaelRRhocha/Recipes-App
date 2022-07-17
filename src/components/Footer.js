@@ -9,7 +9,7 @@ export default function Footer() {
       data-testid="footer"
       className={ `bottom-0
         fixed
-        z-10
+        z-20
         flex
         items-center
         justify-center
