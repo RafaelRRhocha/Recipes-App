@@ -1,9 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import dataContext from '../context/MyContext';
 
 export default function RecipesForFoods() {
-  const { makeFetchCategory, foods, setFoods } = useContext(dataContext);
+  const {
+    fetchCategoryFoods,
+    foods,
+    setFoods,
+    fetchWithIdForFoods,
+  } = useContext(dataContext);
 
   const [categoryButton, setCategoryButton] = useState([]);
   const [clicked, setClicked] = useState(false);
@@ -14,7 +20,7 @@ export default function RecipesForFoods() {
     setFoods(finishJson.meals.filter((_, i) => i < '12'));
   };
 
-  const makeCategoryFetch = async () => {
+  const fetchForFoodsButtons = async () => {
     const requestApiButtons = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const finishJsonButtons = await requestApiButtons.json();
     setCategoryButton(finishJsonButtons.meals.filter((_, i) => i < '5'));
@@ -22,7 +28,7 @@ export default function RecipesForFoods() {
 
   useEffect(() => {
     makeFetch();
-    makeCategoryFetch();
+    fetchForFoodsButtons();
   }, []);
 
   return (
@@ -38,7 +44,7 @@ export default function RecipesForFoods() {
                 value={ btn.strCategory }
                 onClick={ ({ target: { value } }) => {
                   if (!clicked) {
-                    makeFetchCategory(value);
+                    fetchCategoryFoods(value);
                     setClicked(true);
                   }
                   if (clicked) {
@@ -67,23 +73,28 @@ export default function RecipesForFoods() {
             <Link to={ `/foods/${element.idMeal}` } key={ i }>
               <div
                 className={ `card
-                w-[300px]
-                h-[200px]
-                bg-base-100
-                shadow-xl
-                image-full
-                transition-all
-                hover:scale-105 ` }
+                  w-[300px]
+                  h-[200px]
+                  bg-base-100
+                  shadow-xl
+                  image-full
+                  transition-all
+                  hover:scale-105 ` }
                 data-testid={ `${i}-recipe-card` }
               >
-                <img
-                  src={ element.strMealThumb }
-                  data-testid={ `${i}-card-img` }
-                  alt="card da imagem"
-                />
+                <button
+                  type="button"
+                  onClick={ () => fetchWithIdForFoods(element.idMeal) }
+                >
+                  <img
+                    src={ element.strMealThumb }
+                    data-testid={ `${i}-card-img` }
+                    alt="card da imagem"
+                  />
+                </button>
                 <div className="card-body">
                   <h2
-                    className="text-zinc-200 text-[20px]"
+                    className="text-zinc-200 text-[20px] text-left"
                     data-testid={ `${i}-card-name` }
                   >
                     { element.strMeal }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import dataContext from './MyContext';
@@ -12,6 +13,8 @@ export default function Provider({ children }) {
   const [responseDrinks, setResponseDrinks] = useState(null);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [idFoodsPage, setIdFoodsPage] = useState([]);
+  const [idDrinksPage, setIdDrinksPage] = useState([]);
 
   const makeFetchFoods = async () => {
     if (typeSearch === 'ingrediente') {
@@ -81,16 +84,30 @@ export default function Provider({ children }) {
     return null;
   };
 
-  const makeFetchCategory = async (value) => {
+  // fetch que filtra a categoria que o user escolhe
+  const fetchCategoryFoods = async (value) => {
     const apiCategory = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`);
     const jsonRequestCategory = await apiCategory.json();
     setFoods(jsonRequestCategory.meals.filter((_, i) => i < '12'));
   };
 
-  const makeFetchCategoryDrinks = async (value) => {
+  const fetchCategoryDrinks = async (value) => {
     const apiCategory = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
     const jsonRequestCategory = await apiCategory.json();
     setDrinks(jsonRequestCategory.drinks.filter((_, i) => i < '12'));
+  };
+
+  // fetch que filtra pelo id do produto que o user escolhe
+  const fetchWithIdForFoods = async (value) => {
+    const requestApiOfId = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${value}`);
+    const finishRequestJson = await requestApiOfId.json();
+    setIdFoodsPage(finishRequestJson.meals);
+  };
+
+  const fetchWithIdForDrinks = async (value) => {
+    const requestApiOfId = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${value}`);
+    const finishRequestJson = await requestApiOfId.json();
+    setIdDrinksPage(finishRequestJson.drinks);
   };
 
   useEffect(() => {
@@ -107,12 +124,16 @@ export default function Provider({ children }) {
     responseDrinks,
     makeFetchFoods,
     makeFetchDrinks,
-    makeFetchCategory,
+    fetchCategoryFoods,
     foods,
     setFoods,
-    makeFetchCategoryDrinks,
+    fetchCategoryDrinks,
     drinks,
     setDrinks,
+    idFoodsPage,
+    idDrinksPage,
+    fetchWithIdForFoods,
+    fetchWithIdForDrinks,
   };
 
   return (

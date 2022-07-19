@@ -6,7 +6,7 @@ import RecipesForDrinks from '../components/RecipesForDrinks';
 import dataContext from '../context/MyContext';
 
 export default function Drinks() {
-  const { responseDrinks } = useContext(dataContext);
+  const { responseDrinks, fetchWithIdForDrinks } = useContext(dataContext);
 
   const idDrinks = () => <Redirect to={ `/drinks/${responseDrinks[0].idDrink}` } />;
 
@@ -34,11 +34,16 @@ export default function Drinks() {
                   hover:scale-105 ` }
                   data-testid={ `${i}-recipe-card` }
                 >
-                  <img
-                    src={ element.strDrinkThumb }
-                    data-testid={ `${i}-card-img` }
-                    alt="card da imagem"
-                  />
+                  <button
+                    type="button"
+                    onClick={ () => fetchWithIdForDrinks(element.idDrink) }
+                  >
+                    <img
+                      src={ element.strDrinkThumb }
+                      data-testid={ `${i}-card-img` }
+                      alt="card da imagem"
+                    />
+                  </button>
                   <div className="card-body">
                     <h2
                       className="text-zinc-200 text-[20px]"
