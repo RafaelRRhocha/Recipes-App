@@ -6,7 +6,7 @@ import RecipesForFoods from '../components/RecipesForFoods';
 import dataContext from '../context/MyContext';
 
 export default function Foods() {
-  const { response } = useContext(dataContext);
+  const { response, fetchWithIdForFoods } = useContext(dataContext);
 
   const idFood = () => <Redirect to={ `/foods/${response[0].idMeal}` } />;
 
@@ -34,11 +34,17 @@ export default function Foods() {
                   hover:scale-105 ` }
                   data-testid={ `${i}-recipe-card` }
                 >
-                  <img
-                    src={ element.strMealThumb }
-                    data-testid={ `${i}-card-img` }
-                    alt="card da imagem"
-                  />
+                  <button
+                    type="button"
+                    onClick={ () => fetchWithIdForFoods(element.idMeal) }
+                  >
+                    <img
+                      src={ element.strMealThumb }
+                      data-testid={ `${i}-card-img` }
+                      alt="card da imagem"
+                    />
+                  </button>
+
                   <div className="card-body">
                     <h2
                       className="text-zinc-200 text-[20px]"
