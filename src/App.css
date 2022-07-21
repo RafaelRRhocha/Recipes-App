@@ -71,9 +71,13 @@ body {
     width: 150px;
   }
 
-  .changeA {
-    height: 60px;
-    position: relative;
-    width: 100px;
+  .changeWYT {
+    height: 130px;
+    width: 200px;
+  }
+
+  .changeImage {
+    height: 130px;
+    width: 200px;
   }
 }

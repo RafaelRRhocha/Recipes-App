@@ -22,12 +22,12 @@ function App() {
         <Route exact path="/" component={ Login } />
 
         <Route exact path="/foods" component={ Foods } />
-        <Route path="/foods/:id" component={ FoodsId } />
-        <Route path="/foods/:id/inProgress" component={ FoodProgress } />
+        <Route exact path="/foods/:id" component={ FoodsId } />
+        <Route path="/foods/:id/in-progress" component={ FoodProgress } />
 
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/drinks/:id" component={ DrinksId } />
-        <Route path="/drinks/:id/inProgress" component={ DrinkProgress } />
+        <Route path="/drinks/:id/in-progress" component={ DrinkProgress } />
 
         <Route path="/profile" component={ Profile } />
 

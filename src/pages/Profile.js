@@ -11,7 +11,7 @@ export default function Profile() {
       <Header title="Profile" searchBool={ false } />
       <div className="flex flex-col gap-2 items-center text-[20px] mt-[5%] ">
         <p data-testid="profile-email">
-          {`Email: ${email.email}`}
+          {email && email.email}
         </p>
         <div className="flex flex-col gap-5 items-center">
           <Link to="/favorite-recipes">
@@ -43,8 +43,8 @@ export default function Profile() {
             </button>
           </Link>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
