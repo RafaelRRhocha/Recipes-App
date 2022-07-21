@@ -148,7 +148,7 @@ describe('40 - Salve o estado do progresso, que deve ser mantido caso a pessoa a
   });
 });
 
-describe('41 - Desenvolva a lógica de favoritar e compartilhar. A lógica da tela de detalhes de uma receita se aplica aqui', () => {
+describe.only('41 - Desenvolva a lógica de favoritar e compartilhar. A lógica da tela de detalhes de uma receita se aplica aqui', () => {
   it('verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/foods/52771/in-progress', {
       onBeforeLoad(win) {
