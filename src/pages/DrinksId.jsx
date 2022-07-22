@@ -25,6 +25,14 @@ export default function DrinksId() {
 
   const [heart, setHeart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  // const [inProgress, setInProgress] = useState(false);
+
+  // const checkProgress = () => {
+  //   const recipesInProgress = getRecipesInProgress();
+  //   if (recipesInProgress.drinks[id]) {
+  //     setInProgress(true);
+  //   }
+  // };
 
   const setHeartFavorite = () => {
     if (heart) {
@@ -131,7 +139,7 @@ export default function DrinksId() {
                 type="button"
                 data-testid="start-recipe-btn"
               >
-                Start Recipe
+                Continue Recipe
               </button>
             </Link>
           )}

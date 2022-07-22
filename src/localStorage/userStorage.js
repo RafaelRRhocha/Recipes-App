@@ -42,3 +42,21 @@ export const removeFavoriteRecipe = (id) => {
     JSON.stringify(respFavorite.filter((e) => e.id !== id))
   ));
 };
+
+export const readDoneRecipes = () => {
+  const response = localStorage.getItem('doneRecipes');
+  if (response) {
+    return JSON.parse(response);
+  } return null;
+};
+
+export const saveDoneRecipes = (doneRecipes) => {
+  const respDone = readDoneRecipes();
+  if (respDone) {
+    localStorage.setItem('doneRecipes', (
+      JSON.stringify([...respDone, doneRecipes])
+    ));
+  } else {
+    localStorage.setItem('doneRecipes', JSON.stringify([doneRecipes]));
+  }
+};

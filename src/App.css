@@ -80,4 +80,8 @@ body {
     height: 130px;
     width: 200px;
   }
+
+  .changeFlexCol {
+    flex-direction: column;
+  }
 }

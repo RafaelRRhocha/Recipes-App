@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipesForDrinks from '../components/RecipesForDrinks';
+import Recipes from '../components/Recipes';
 import dataContext from '../context/MyContext';
 
 export default function Drinks() {
@@ -14,7 +14,7 @@ export default function Drinks() {
     <div className="bg-[#171212]">
       <Header title="Drinks" searchBool />
       {!responseDrinks && (
-        <RecipesForDrinks />
+        <Recipes />
       )}
       {responseDrinks && (
         <div className="flex gap-8 flex-wrap justify-center p-20 reducePaddingCards">

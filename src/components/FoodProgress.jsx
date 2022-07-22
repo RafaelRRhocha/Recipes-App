@@ -10,18 +10,22 @@ import {
   saveFavoriteRecipes,
   removeFavoriteRecipe,
   readFavoriteRecipes,
+  saveDoneRecipes,
 } from '../localStorage/userStorage';
 
-export default function DrinkProgress() {
+export default function FoodProgress() {
   const {
-    idDrinksPage,
-    fetchWithIdForDrinks,
-    ingredientsDrinks,
+    idFoodsPage,
+    fetchWithIdForFoods,
+    ingredientsFoods,
     setCatchId,
     saveInprogressRecipes,
+    currentDate,
   } = useContext(dataContext);
+
   const { id } = useParams();
   setCatchId(id);
+
   const [heart, setHeart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [arrCheckbox, setArrCheckbox] = useState([]);
@@ -35,12 +39,12 @@ export default function DrinkProgress() {
       setHeart(true);
       saveFavoriteRecipes({
         id,
-        type: 'drink',
-        nationality: '',
-        category: idDrinksPage.strCategory,
-        alcoholicOrNot: idDrinksPage.strAlcoholic,
-        name: idDrinksPage.strDrink,
-        image: idDrinksPage.strDrinkThumb,
+        type: 'food',
+        nationality: idFoodsPage.strArea,
+        category: idFoodsPage.strCategory,
+        alcoholicOrNot: '',
+        name: idFoodsPage.strMeal,
+        image: idFoodsPage.strMealThumb,
       });
     }
   };
@@ -95,17 +99,17 @@ export default function DrinkProgress() {
   };
 
   useEffect(() => {
-    fetchWithIdForDrinks(id);
+    fetchWithIdForFoods(id);
     setHeartForTrue();
   }, []);
 
   return (
     <div className="bg-[#171212] flex flex-col p-10">
-      {idDrinksPage && (
+      {idFoodsPage && (
         <>
           <div className="flex gap-4 p-8">
             <img
-              src={ idDrinksPage.strDrinkThumb }
+              src={ idFoodsPage.strMealThumb }
               data-testid="recipe-photo"
               alt="card da imagem"
               className="w-[200px] h-[230px] rounded-lg changeImage"
@@ -119,14 +123,14 @@ export default function DrinkProgress() {
             font-semibold
             text-[20px]` }
             >
-              <h2 data-testid="recipe-title">{idDrinksPage.strDrink}</h2>
-              <h2 data-testid="recipe-category">{idDrinksPage.strAlcoholic}</h2>
+              <h2 data-testid="recipe-title">{idFoodsPage.strMeal}</h2>
+              <h2 data-testid="recipe-category">{idFoodsPage.strAlcoholic}</h2>
             </div>
           </div>
           <div className="flex items-center">
             <div className="flex flex-col p-8 justify-center">
               <h1 className="font-semibold text-[20px]">Ingredients:</h1>
-              {ingredientsDrinks && ingredientsDrinks.map((e, i) => (
+              {ingredientsFoods && ingredientsFoods.map((e, i) => (
                 <div key={ i }>
                   {e && (
                     <div
@@ -161,7 +165,7 @@ export default function DrinkProgress() {
                 data-testid="instructions"
                 className="max-w-[70%] text-left"
               >
-                {idDrinksPage.strInstructions}
+                {idFoodsPage.strInstructions}
               </h2>
             </div>
           </div>
@@ -170,7 +174,8 @@ export default function DrinkProgress() {
             gap-6
             items-center
             justify-center
-            bottom-0 fixed` }
+            bottom-0
+            fixed` }
           >
             <Link to="/done-recipes">
               <button
@@ -180,8 +185,20 @@ export default function DrinkProgress() {
                 className="btn btn-success bg-green-500 w-[180px]"
                 disabled={ allCheckbox }
                 onClick={ () => {
-                  saveInprogressRecipes(ingredientsDrinks && (
-                    ingredientsDrinks.filter((e) => e !== null)));
+                  saveInprogressRecipes(ingredientsFoods && '', (
+                    ingredientsFoods.filter((e) => e !== null && e !== '')
+                  ));
+                  saveDoneRecipes({
+                    id,
+                    type: 'food',
+                    nationality: idFoodsPage.strArea,
+                    category: idFoodsPage.strCategory,
+                    alcoholicOrNot: '',
+                    name: idFoodsPage.strMeal,
+                    image: idFoodsPage.strMealThumb,
+                    doneDate: currentDate,
+                    tags: (idFoodsPage.strTags && idFoodsPage.strTags.split(',')) || [],
+                  });
                 } }
               >
                 Finish Recipe
@@ -210,7 +227,7 @@ export default function DrinkProgress() {
                 data-testid="favorite-btn"
                 src={ heart ? blackHeartIcon : whiteHeartIcon }
                 alt="favoritar"
-                // className="w-10"
+                className="w-10"
               />
             </button>
             {isClicked && <span className="absolute top-[-40px]">Link copied!</span> }
