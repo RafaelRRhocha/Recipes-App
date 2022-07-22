@@ -15,6 +15,13 @@ export default function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [idFoodsPage, setIdFoodsPage] = useState([]);
   const [idDrinksPage, setIdDrinksPage] = useState([]);
+  const [buttonRecipe, setButtonRecipe] = useState(true);
+  const [favoriteDrinksRecipes, setFavoriteDrinksRecipes] = useState(true);
+  const [ingredientsDrinks, setIngredientsDrinks] = useState([]);
+  const [measureDrinks, setMeasureDrinks] = useState([]);
+  const [ingredientsFoods, setIngredientsFoods] = useState([]);
+  const [measureFoods, setMeasureFoods] = useState([]);
+  const [catchId, setCatchId] = useState(0);
 
   const makeFetchFoods = async () => {
     if (typeSearch === 'ingrediente') {
@@ -101,13 +108,91 @@ export default function Provider({ children }) {
   const fetchWithIdForFoods = async (value) => {
     const requestApiOfId = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${value}`);
     const finishRequestJson = await requestApiOfId.json();
-    setIdFoodsPage(finishRequestJson.meals);
+    const measure = Object.entries(finishRequestJson.meals[0]).reduce((acc, item) => {
+      if (item[0].includes('strMeasure')) {
+        acc.push(item[1]);
+      }
+      return acc;
+    }, []);
+    const ingr = Object.entries(finishRequestJson.meals[0]).reduce((acc, item) => {
+      if (item[0].includes('strIngredient')) {
+        acc.push(item[1]);
+      }
+      return acc;
+    }, []);
+    setMeasureFoods(measure);
+    setIngredientsFoods(ingr);
+    setIdFoodsPage(finishRequestJson.meals[0]);
   };
 
   const fetchWithIdForDrinks = async (value) => {
     const requestApiOfId = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${value}`);
     const finishRequestJson = await requestApiOfId.json();
-    setIdDrinksPage(finishRequestJson.drinks);
+    const ingr = Object.entries(finishRequestJson.drinks[0]).reduce((acc, element) => {
+      if (element[0].includes('strIngredient')) {
+        acc.push(element[1]);
+      }
+      return acc;
+    }, []);
+    const measure = Object.entries(finishRequestJson.drinks[0]).reduce((acc, element) => {
+      if (element[0].includes('strMeasure')) {
+        acc.push(element[1]);
+      }
+      return acc;
+    }, []);
+    setMeasureDrinks(measure);
+    setIngredientsDrinks(ingr);
+    setIdDrinksPage(finishRequestJson.drinks[0]);
+  };
+
+  const saveInprogressRecipes = (cocktailsP, mealsP) => {
+    const respFavorite = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!respFavorite && cocktailsP) {
+      const cocktailsValue = Object.values(cocktailsP);
+      localStorage.setItem('inProgressRecipes', (
+        JSON.stringify({
+          cocktails: {
+            [catchId]: cocktailsValue,
+          },
+          meals: {},
+        })
+      ));
+    } else if (cocktailsP) {
+      localStorage.setItem('inProgressRecipes', (
+        JSON.stringify({
+          cocktails: {
+            ...respFavorite.cocktails,
+            [catchId]: cocktailsValue,
+          },
+          meals: {
+            ...respFavorite.meals,
+          },
+        })
+      ));
+    }
+    if (!respFavorite && mealsP) {
+      const mealsPValue = Object.values(mealsP);
+      localStorage.setItem('inProgressRecipes', (
+        JSON.stringify({
+          cocktails: {},
+          meals: {
+            [catchId]: mealsPValue,
+          },
+        })
+      ));
+    } else if (mealsP) {
+      localStorage.setItem('inProgressRecipes', (
+        JSON.stringify({
+          cocktails: {
+            ...respFavorite.cocktails,
+          },
+          meals: {
+            ...respFavorite.meals,
+            [catchId]: mealsPValue,
+          },
+        })
+      ));
+    }
   };
 
   useEffect(() => {
@@ -134,6 +219,16 @@ export default function Provider({ children }) {
     idDrinksPage,
     fetchWithIdForFoods,
     fetchWithIdForDrinks,
+    buttonRecipe,
+    setButtonRecipe,
+    favoriteDrinksRecipes,
+    setFavoriteDrinksRecipes,
+    ingredientsDrinks,
+    measureDrinks,
+    ingredientsFoods,
+    measureFoods,
+    setCatchId,
+    saveInprogressRecipes,
   };
 
   return (

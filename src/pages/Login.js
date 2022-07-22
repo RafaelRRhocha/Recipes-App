@@ -27,6 +27,10 @@ export default function Login() {
     });
     saveMealsToken(1);
     saveCocktailsToken(1);
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {},
+      meals: {},
+    }));
     setRedirect(true);
   };
 

@@ -3,9 +3,9 @@ import React from 'react';
 
 export default function YoutubeEmbed({ url }) {
   return (
-    <div className="video-responsive absolute top-[380px] right-[150px] changeA">
+    <div className="p-8 m-auto">
       <iframe
-        className="w-[560px] h-[315px] rounded-lg"
+        className="w-[560px] h-[315px] rounded-lg changeWYT"
         data-testid="video"
         src={ url }
         frameBorder="0"
