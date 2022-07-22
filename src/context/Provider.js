@@ -147,17 +147,8 @@ export default function Provider({ children }) {
 
   const saveInprogressRecipes = (cocktailsP, mealsP) => {
     const respFavorite = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!respFavorite && cocktailsP) {
+    if (cocktailsP) {
       const cocktailsValue = Object.values(cocktailsP);
-      localStorage.setItem('inProgressRecipes', (
-        JSON.stringify({
-          cocktails: {
-            [catchId]: cocktailsValue,
-          },
-          meals: {},
-        })
-      ));
-    } else if (cocktailsP) {
       localStorage.setItem('inProgressRecipes', (
         JSON.stringify({
           cocktails: {
@@ -170,17 +161,8 @@ export default function Provider({ children }) {
         })
       ));
     }
-    if (!respFavorite && mealsP) {
+    if (mealsP) {
       const mealsPValue = Object.values(mealsP);
-      localStorage.setItem('inProgressRecipes', (
-        JSON.stringify({
-          cocktails: {},
-          meals: {
-            [catchId]: mealsPValue,
-          },
-        })
-      ));
-    } else if (mealsP) {
       localStorage.setItem('inProgressRecipes', (
         JSON.stringify({
           cocktails: {
@@ -194,6 +176,12 @@ export default function Provider({ children }) {
       ));
     }
   };
+
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, '0');
+  const mounth = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const currentDate = `${day}/${mounth}/${year}`;
 
   useEffect(() => {
     makeFetchFoods();
@@ -229,6 +217,7 @@ export default function Provider({ children }) {
     measureFoods,
     setCatchId,
     saveInprogressRecipes,
+    currentDate,
   };
 
   return (
