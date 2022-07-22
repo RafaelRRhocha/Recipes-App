@@ -14,8 +14,6 @@ export default function DoneRecipes() {
     setRecipes(filterRecipes && filterRecipes.filter((recipe) => type === recipe.type));
   };
 
-  console.log(recipes);
-
   useEffect(() => {
     const doneRecipes = readDoneRecipes();
     setRecipes(doneRecipes);
