@@ -137,7 +137,7 @@ export default function FoodsId() {
                 type="button"
                 data-testid="start-recipe-btn"
               >
-                Start Recipe
+                Continue Recipe
               </button>
             </Link>
           )}
