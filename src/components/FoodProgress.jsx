@@ -163,7 +163,7 @@ export default function FoodProgress() {
               <h1 className="font-semibold text-[20px]">Preparation Mode:</h1>
               <h2
                 data-testid="instructions"
-                className="max-w-[70%] text-left"
+                className="max-w-[90%] text-left"
               >
                 {idFoodsPage.strInstructions}
               </h2>

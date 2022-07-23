@@ -23,8 +23,6 @@ export default function FavoriteRecipes() {
     setFavorites((old) => old.filter((item) => item.id !== id));
   };
 
-  console.log(favorites);
-
   useEffect(() => {
     const favoriteRecipes = readFavoriteRecipes();
     setFavorites(favoriteRecipes);
