@@ -123,7 +123,7 @@ export default function FoodsId() {
             <h1 className="font-semibold text-[20px]">Preparation Mode:</h1>
             <h2
               data-testid="instructions"
-              className="max-w-[90%] text-left"
+              className="text-left"
             >
               {idFoodsPage.strInstructions}
             </h2>

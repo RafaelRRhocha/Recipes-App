@@ -25,14 +25,6 @@ export default function DrinksId() {
 
   const [heart, setHeart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  // const [inProgress, setInProgress] = useState(false);
-
-  // const checkProgress = () => {
-  //   const recipesInProgress = getRecipesInProgress();
-  //   if (recipesInProgress.drinks[id]) {
-  //     setInProgress(true);
-  //   }
-  // };
 
   const setHeartFavorite = () => {
     if (heart) {
@@ -111,7 +103,7 @@ export default function DrinksId() {
                 className="w-10"
               />
             </button>
-            {isClicked && <span className="absolute top-[-40px]">Link copied!</span> }
+            {isClicked && <span>Link copied!</span> }
           </div>
           <div className="flex flex-col p-8 justify-center">
             <h1 className="font-semibold text-[20px]">Ingredients:</h1>
