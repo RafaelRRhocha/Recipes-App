@@ -7,8 +7,6 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import {
-  saveFavoriteRecipes,
-  removeFavoriteRecipe,
   readFavoriteRecipes,
   saveDoneRecipes,
 } from '../localStorage/userStorage';
@@ -21,79 +19,23 @@ export default function DrinkProgress() {
     setCatchId,
     saveInprogressRecipes,
     currentDate,
+    verifyCheckBox,
+    allCheckbox,
+    createClickIngredient,
+    setHeartFavorite,
   } = useContext(dataContext);
+
   const { id } = useParams();
   setCatchId(id);
+
+  const arrChecks = JSON.parse(localStorage.getItem('check'));
+
   const [heart, setHeart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [arrCheckbox, setArrCheckbox] = useState([]);
-  const [allCheckbox, setAllCheckbox] = useState(true);
-
-  const setHeartFavorite = () => {
-    if (heart) {
-      setHeart(false);
-      removeFavoriteRecipe(id);
-    } else {
-      setHeart(true);
-      saveFavoriteRecipes({
-        id,
-        type: 'drink',
-        nationality: '',
-        category: idDrinksPage.strCategory,
-        alcoholicOrNot: idDrinksPage.strAlcoholic,
-        name: idDrinksPage.strDrink,
-        image: idDrinksPage.strDrinkThumb,
-      });
-    }
-  };
 
   const setHeartForTrue = () => {
     const favoriteRecipes = readFavoriteRecipes();
     setHeart(favoriteRecipes && favoriteRecipes.some((e) => e.id === id));
-  };
-
-  const arrChecks = JSON.parse(localStorage.getItem('check'));
-  const createClickIngredient = (name) => {
-    if (arrCheckbox && arrCheckbox.includes(name)) {
-      localStorage.setItem('check', (
-        JSON.stringify(arrCheckbox.filter((element) => (
-          element !== name
-        )))
-      ));
-      setArrCheckbox(arrCheckbox.filter((element) => (
-        element !== name
-      )));
-    } else if (!arrCheckbox.includes(name) && !arrChecks) {
-      localStorage.setItem('check', (
-        JSON.stringify([name])
-      ));
-      setArrCheckbox(arrCheckbox.length === 0 ? (
-        [name]
-      ) : (
-        [...arrCheckbox, name]
-      ));
-    } else if (arrChecks) {
-      localStorage.setItem('check', (
-        JSON.stringify([...arrChecks, name])
-      ));
-      setArrCheckbox(arrCheckbox.length === 0 ? (
-        [name]
-      ) : (
-        [...arrCheckbox, name]
-      ));
-    }
-  };
-
-  const verifyCheckBox = () => {
-    const check = document.querySelectorAll('.itemCheck');
-
-    check.forEach((e, i) => {
-      if (check[i].checked && i < check.length) {
-        setAllCheckbox(false);
-      } else {
-        setAllCheckbox(true);
-      }
-    });
   };
 
   useEffect(() => {

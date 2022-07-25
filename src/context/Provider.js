@@ -1,7 +1,12 @@
+/* eslint-disable max-lines */
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import dataContext from './MyContext';
+import {
+  saveFavoriteRecipes,
+  removeFavoriteRecipe,
+} from '../localStorage/userStorage';
 
 const firstLetter = 'primeira-letra';
 const undefinedSearch = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -22,6 +27,9 @@ export default function Provider({ children }) {
   const [ingredientsFoods, setIngredientsFoods] = useState([]);
   const [measureFoods, setMeasureFoods] = useState([]);
   const [catchId, setCatchId] = useState(0);
+  const [allCheckbox, setAllCheckbox] = useState(true);
+  const [arrCheckbox, setArrCheckbox] = useState([]);
+  const [heart, setHeart] = useState(false);
 
   const makeFetchFoods = async () => {
     if (typeSearch === 'ingrediente') {
@@ -183,6 +191,68 @@ export default function Provider({ children }) {
   const year = date.getFullYear();
   const currentDate = `${day}/${mounth}/${year}`;
 
+  const verifyCheckBox = () => {
+    const check = document.querySelectorAll('.itemCheck');
+
+    check.forEach((e, i) => {
+      if (check[i].checked && i < check.length) {
+        setAllCheckbox(false);
+      } else {
+        setAllCheckbox(true);
+      }
+    });
+  };
+
+  const arrChecks = JSON.parse(localStorage.getItem('check'));
+  const createClickIngredient = (name) => {
+    if (arrCheckbox && arrCheckbox.includes(name)) {
+      localStorage.setItem('check', (
+        JSON.stringify(arrCheckbox.filter((element) => (
+          element !== name
+        )))
+      ));
+      setArrCheckbox(arrCheckbox.filter((element) => (
+        element !== name
+      )));
+    } else if (!arrCheckbox.includes(name) && !arrChecks) {
+      localStorage.setItem('check', (
+        JSON.stringify([name])
+      ));
+      setArrCheckbox(arrCheckbox.length === 0 ? (
+        [name]
+      ) : (
+        [...arrCheckbox, name]
+      ));
+    } else if (arrChecks) {
+      localStorage.setItem('check', (
+        JSON.stringify([...arrChecks, name])
+      ));
+      setArrCheckbox(arrCheckbox.length === 0 ? (
+        [name]
+      ) : (
+        [...arrCheckbox, name]
+      ));
+    }
+  };
+
+  const setHeartFavorite = () => {
+    if (heart) {
+      setHeart(false);
+      removeFavoriteRecipe(id);
+    } else {
+      setHeart(true);
+      saveFavoriteRecipes({
+        id,
+        type: 'food',
+        nationality: idFoodsPage.strArea,
+        category: idFoodsPage.strCategory,
+        alcoholicOrNot: '',
+        name: idFoodsPage.strMeal,
+        image: idFoodsPage.strMealThumb,
+      });
+    }
+  };
+
   useEffect(() => {
     makeFetchFoods();
     makeFetchDrinks();
@@ -218,6 +288,10 @@ export default function Provider({ children }) {
     setCatchId,
     saveInprogressRecipes,
     currentDate,
+    allCheckbox,
+    verifyCheckBox,
+    createClickIngredient,
+    setHeartFavorite,
   };
 
   return (
