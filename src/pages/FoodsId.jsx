@@ -112,12 +112,14 @@ export default function FoodsId() {
           </div>
           <div className="flex flex-col gap-2 p-8 justify-center">
             <h1 className="font-semibold text-[20px]">Ingredients:</h1>
-            {ingredientsFoods && ingredientsFoods.map((e, i) => (
-              <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
-            ))}
-            {measureFoods && measureFoods.map((e, i) => (
-              <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
-            ))}
+            <div className="flex flex-col">
+              {ingredientsFoods && ingredientsFoods.map((e, i) => (
+                <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
+              ))}
+              {measureFoods && measureFoods.map((e, i) => (
+                <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
+              ))}
+            </div>
           </div>
           <div className="flex flex-col gap-2 p-8">
             <h1 className="font-semibold text-[20px]">Preparation Mode:</h1>
@@ -137,7 +139,7 @@ export default function FoodsId() {
                 type="button"
                 data-testid="start-recipe-btn"
               >
-                Continue Recipe
+                Start Recipe
               </button>
             </Link>
           )}

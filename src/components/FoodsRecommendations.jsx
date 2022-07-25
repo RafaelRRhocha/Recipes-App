@@ -10,7 +10,7 @@ export default function FoodsRecommendation() {
     );
     const finishJsonRecommendations = await requestApiRecommendations.json();
     setfoodsRecommendation(
-      finishJsonRecommendations.meals.filter((_, i) => i < '6'),
+      finishJsonRecommendations.meals.filter((_, i) => i < '20'),
     );
   };
 
