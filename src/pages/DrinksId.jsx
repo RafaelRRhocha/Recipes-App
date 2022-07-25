@@ -109,10 +109,14 @@ export default function DrinksId() {
             <h1 className="font-semibold text-[20px]">Ingredients:</h1>
             <div className="flex flex-col">
               {ingredientsDrinks && ingredientsDrinks.map((e, i) => (
-                <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
-              ))}
-              {measureDrinks && measureDrinks.map((e, i) => (
-                <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{e}</p>
+                e && (
+                  <p
+                    data-testid={ `${i}-ingredient-name-and-measure` }
+                    key={ i }
+                  >
+                    {`${e}: ${measureDrinks && measureDrinks[i]}`}
+                  </p>
+                )
               ))}
             </div>
           </div>
