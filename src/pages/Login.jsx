@@ -36,7 +36,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-3 pt-[10%]">
-      <h1 className="text-center text-[50px]">Recipe App</h1>
+      <h1 className="text-center text-[50px] text-zinc-200">Recipe App</h1>
       <div className="form-control w-full max-w-xs flex gap-4">
         {redirect && <Redirect to="foods" />}
         <input

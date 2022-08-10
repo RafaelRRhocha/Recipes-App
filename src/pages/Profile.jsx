@@ -10,7 +10,7 @@ export default function Profile() {
     <>
       <Header title="Profile" searchBool={ false } />
       <div className="flex flex-col gap-2 items-center text-[20px] mt-[5%] ">
-        <p data-testid="profile-email">
+        <p data-testid="profile-email" className="text-zinc-200">
           {email && email.email}
         </p>
         <div className="flex flex-col gap-5 items-center">

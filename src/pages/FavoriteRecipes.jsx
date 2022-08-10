@@ -45,7 +45,7 @@ export default function FavoriteRecipes() {
             type="button"
             data-testid="filter-by-drink-btn"
             onClick={ () => filterButton('drink') }
-            className="btn btn-primary text-black hover:text-white bg-blue-700"
+            className="btn text-black hover:text-white bg-[#00ffff] hover:bg-blue-500"
           >
             Drinks
           </button>
