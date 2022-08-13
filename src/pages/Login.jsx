@@ -45,7 +45,16 @@ export default function Login() {
           type="email"
           value={ email }
           placeholder="type your email here"
-          className="input input-bordered w-full max-w-xs"
+          className={ `
+            input
+            input-ghost
+            input-secondary
+            focus:bg-[#191818]
+            text-zinc-100
+            hover:text-zinc-100
+            w-full
+            max-w-xs
+          ` }
         />
         <input
           onChange={ verifyInputPassword }
@@ -53,7 +62,16 @@ export default function Login() {
           type="password"
           value={ password }
           placeholder="type your password here"
-          className="input input-bordered w-full max-w-xs"
+          className={ `
+            input
+            input-ghost
+            input-secondary
+            focus:bg-[#191818]
+            text-zinc-100
+            hover:text-zinc-100
+            w-full
+            max-w-xs
+          ` }
         />
         <button
           disabled={ !disable || password.length <= '6' }
