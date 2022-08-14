@@ -36,18 +36,40 @@ export default function FoodsRecommendation() {
   }, []);
 
   return (
-    <div className="overflow-x-hidden scroll-smooth">
+    <div className="overflow-x-hidden scroll-smooth text-zinc-100">
       <button
         onClick={ handleLeftMargin }
         type="button"
-        className="btn btn-circle absolute w-[40px] h-[400px] left-0 z-40 cursor-pointer"
+        className={ `
+          btn
+          btn-circle
+          absolute
+          w-[40px]
+          h-[400px] 
+          hover:bg-[#171212]
+          border-hidden
+          left-0
+          z-40
+          cursor-pointer
+        ` }
       >
         ❮
       </button>
       <button
         onClick={ handleRigthMargin }
         type="button"
-        className="btn btn-circle absolute w-[40px] h-[400px] right-0 z-40"
+        className={ `
+          btn
+          btn-circle
+          absolute
+          w-[40px]
+          h-[400px] 
+          hover:bg-[#171212]
+          border-hidden
+          right-0
+          z-40
+          cursor-pointer
+        ` }
       >
         ❯
       </button>
@@ -62,7 +84,7 @@ export default function FoodsRecommendation() {
               className="flex gap-9 hover:animate-pulse cursor-pointer change-w"
               data-testid={ `${i}-recomendation-card` }
             >
-              <div className="card w-[300px] h-[400px] bg-base-100 shadow-xl">
+              <div className="card w-[300px] h-[400px] bg-[#191818 shadow-xl">
                 <img src={ e.strMealThumb } alt="Foods" className="w-[100%]" />
                 <div className="card-body mt-[-10px]">
                   <h2

@@ -108,7 +108,18 @@ export default function FoodsId() {
                 className="w-10"
               />
             </button>
-            {isClicked && <span className="absolute top-[-40px]">Link copied!</span> }
+            {isClicked && <span>Link copied!</span> }
+            {buttonRecipe && (
+              <Link to={ `/foods/${id}/in-progress` } className="flex justify-center">
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  data-testid="start-recipe-btn"
+                >
+                  Start Recipe
+                </button>
+              </Link>
+            )}
           </div>
           <div className="flex flex-col gap-2 p-8 justify-center">
             <h1 className="font-semibold text-[20px]">Ingredients:</h1>
@@ -136,17 +147,6 @@ export default function FoodsId() {
           </div>
           <YoutubeEmbed url={ replaceUrl } />
           <DrinksRecommendations />
-          {buttonRecipe && (
-            <Link to={ `/foods/${id}/in-progress` } className="flex justify-center">
-              <button
-                className="fixed bottom-0 btn btn-secondary"
-                type="button"
-                data-testid="start-recipe-btn"
-              >
-                Start Recipe
-              </button>
-            </Link>
-          )}
         </>
       )}
     </div>
