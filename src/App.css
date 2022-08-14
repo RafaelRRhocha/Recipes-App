@@ -38,6 +38,7 @@ body {
   }
 
   .inputHeader {
+    background-color: #171212;
     margin-left: -190px;
     position: absolute;
     top: 100px;

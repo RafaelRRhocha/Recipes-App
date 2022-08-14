@@ -18,7 +18,7 @@ export default function SearchBar({ headerTitle }) {
     <div className="flex gap-2 form-control">
       <div className="flex flex-row">
         <label htmlFor="ingrediente" className="label p-4 cursor-pointer">
-          <span className="label-text text-black">Ingrediente</span>
+          <span className="label-text text-black">Ingredient</span>
           <input
             onClick={ () => setTypeSearch('ingrediente') }
             type="radio"
